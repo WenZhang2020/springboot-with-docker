@@ -10,6 +10,7 @@ podTemplate(label: label, containers: [
     stage('Build') {
       container('gradle') {
         sh """
+          git clone https://github.com/WenZhang2020/springboot-with-docker.git
           cd springboot-with-docker
           ./gradlew build
         """
