@@ -9,6 +9,7 @@ podTemplate(label: label, containers: [
   node(label) {
     stage('Build') {
       container('gradle') {
+        cd springboot-with-docker
         sh "./gradlew build"
       }
     }
