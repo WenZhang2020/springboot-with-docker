@@ -44,7 +44,7 @@ podTemplate(label: label, runAsUser: "0", runAsGroup: "0", containers: [
             """
         }
       }
-    }
+   
     stage('Run kubectl') {
       container('kubectl') {
         sh """
@@ -52,5 +52,5 @@ podTemplate(label: label, runAsUser: "0", runAsGroup: "0", containers: [
             """
       }
     }
-    
+     }
     }
