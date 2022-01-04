@@ -1,6 +1,6 @@
 def label = "worker-${UUID.randomUUID().toString()}"
 
-podTemplate(label: label, runAsUser: 0, runAsGroup: 0, containers: [
+podTemplate(label: label, runAsUser: "0", runAsGroup: "0", containers: [
   containerTemplate(name: 'gradle', image: 'gradle:4.5.1-jdk9', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'golang', image: 'golang:1.16.5', command: 'sleep', args: '99d')
 ],volumes: [
