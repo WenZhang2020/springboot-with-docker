@@ -2,7 +2,7 @@ def label = "worker-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, runAsUser: "0", runAsGroup: "0", containers: [
   containerTemplate(name: 'gradle', image: 'gradle:7.3.3-jdk11', command: 'cat', ttyEnabled: true),
-  containerTemplate(name: 'golang', image: 'golang:1.16.5', command: 'sleep', args: '99d')
+  containerTemplate(name: 'dockerindocker', image: 'aimvector/jenkins-slave', command: 'sleep', args: '99d')
 ],volumes: [
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
 ]) {
@@ -37,7 +37,7 @@ podTemplate(label: label, runAsUser: "0", runAsGroup: "0", containers: [
       }
     }
     stage('Create images') {
-      container('golang') {
+      container('dockerindocker') {
           sh """
             docker build -t jhooq-docker-demo .
             """
