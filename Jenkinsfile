@@ -2,6 +2,7 @@ def label = "worker-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, runAsUser: "0", runAsGroup: "0", containers: [
   containerTemplate(name: 'gradle', image: 'gradle:7.3.3-jdk11', command: 'cat', ttyEnabled: true),
+  containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.8', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'dockerindocker', image: 'aimvector/jenkins-slave', command: 'sleep', args: '99d')
 ],volumes: [
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
@@ -42,6 +43,13 @@ podTemplate(label: label, runAsUser: "0", runAsGroup: "0", containers: [
             docker build -t jhooq-docker-demo .
             """
         }
+      }
+    }
+    stage('Run kubectl') {
+      container('kubectl') {
+        sh """
+            kubeclt get all -n jenkins
+            """
       }
     }
     
