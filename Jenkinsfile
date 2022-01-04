@@ -48,7 +48,7 @@ podTemplate(label: label, runAsUser: "0", runAsGroup: "0", containers: [
     stage('Run kubectl') {
       container('kubectl') {
         sh """
-            kubeclt get all -n jenkins
+            kubectl apply -f k8s-spring-boot-deployment.yml
             """
       }
     }
