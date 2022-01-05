@@ -43,7 +43,7 @@ podTemplate(label: label, runAsUser: "0", runAsGroup: "0", containers: [
       container('dockerindocker') {
             withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
               sh """
-                docker login -u wzhang12 -p $PASSWORD
+                docker login -u wzhang12 -p '$PASSWORD'
                 docker build -t jhooq-docker-demo .
                 docker tag jhooq-docker-demo wzhang12/jhooq-docker-demo:jhooq-docker-demo
                 docker push  wzhang12/jhooq-docker-demo:jhooq-docker-demo
